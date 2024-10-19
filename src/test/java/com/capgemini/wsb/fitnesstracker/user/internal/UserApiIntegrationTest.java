@@ -127,7 +127,6 @@ class UserApiIntegrationTest extends IntegrationTestBase {
 
         List<User> allUser = getAllUsers();
         assertThat(allUser).isEmpty();
-
     }
 
     @Test
