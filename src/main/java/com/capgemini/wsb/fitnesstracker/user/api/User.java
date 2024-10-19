@@ -12,11 +12,13 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
@@ -50,7 +52,4 @@ public class User {
         this.email = email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

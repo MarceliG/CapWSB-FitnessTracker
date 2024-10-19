@@ -21,12 +21,6 @@ class UserMapper {
                 user.getLastName());
     }
 
-    UserSimpleDto toSimple(User user) {
-        return new UserSimpleDto(user.getId(),
-                user.getFirstName(),
-                user.getLastName());
-    }
-
     UserEmailDto toEmail(User user) {
         return new UserEmailDto(user.getId(),
                 user.getEmail());
@@ -47,4 +41,11 @@ class UserMapper {
                 userDto.email());
     }
 
+    User updateEntity(User user, UserDto userDto) {
+        user.setFirstName(userDto.firstName());
+        user.setLastName(userDto.lastName());
+        user.setBirthdate(userDto.birthdate());
+        user.setEmail(userDto.email());
+        return user;
+    }
 }

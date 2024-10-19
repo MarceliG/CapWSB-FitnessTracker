@@ -178,7 +178,6 @@ class UserApiIntegrationTest extends IntegrationTestBase {
         String USER_EMAIL = "mike.scott@domain.com";
 
         String updateRequest = """
-
                 {
                 "firstName": "%s",
                 "lastName": "%s",

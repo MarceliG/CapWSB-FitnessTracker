@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.user.api.UserNotFoundException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.RequiredArgsConstructor;
@@ -34,14 +35,6 @@ class UserController {
         return userService.findAllUsers()
                 .stream()
                 .map(userMapper::toDto)
-                .toList();
-    }
-
-    @GetMapping("/simple")
-    public List<UserSimpleDto> getSimpleAllUser() {
-        return userService.findAllUsers()
-                .stream()
-                .map(userMapper::toSimple)
                 .toList();
     }
 
@@ -89,15 +82,11 @@ class UserController {
     }
 
     @PutMapping("/{userId}")
-    public User updateUserEmail(@PathVariable Long userId, @RequestBody User updatedUser) {
-        User user = userService.getUser(userId).orElseThrow();
-
-        if (updatedUser.getEmail() != null) {
-            user.setEmail(updatedUser.getEmail());
-        }
-
-        User result = userService.updateUser(user);
-        return result;
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        User existingUser = userService.getUser(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        User updatedUser = userMapper.updateEntity(existingUser, userDto);
+        return userService.updateUser(updatedUser);
     }
 
 }
