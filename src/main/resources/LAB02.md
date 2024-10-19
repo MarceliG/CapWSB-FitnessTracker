@@ -19,7 +19,7 @@ serwisu FitnessTracker:
 
 Stworzone API powinno pozwalać na:
 
-- [ ] wylistowanie podstawowych informacji o wszystkich użytkownikach zapisanych w systemie (tylko ID oraz nazwa użytkownika)
+- [X] wylistowanie podstawowych informacji o wszystkich użytkownikach zapisanych w systemie (tylko ID oraz nazwa użytkownika)
 - [ ] pobranie szczegółów dotyczących wybranego użytkownika (dowolny parametr: ID/imię & nazwisko/datę urodzenia/ e-mail)
 - [ ] utworzenie nowego użytkownika
 - [ ] usunięcie użytkownika (konkretny, np. konkretny ID danego uzytkownika)
