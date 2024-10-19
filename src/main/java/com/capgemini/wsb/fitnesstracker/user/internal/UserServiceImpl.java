@@ -1,14 +1,16 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import com.capgemini.wsb.fitnesstracker.user.api.UserProvider;
 import com.capgemini.wsb.fitnesstracker.user.api.UserService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,26 @@ class UserServiceImpl implements UserService, UserProvider {
             throw new IllegalArgumentException("User has already DB ID, update is not permitted!");
         }
         return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(final Long userId) {
+        log.info("Deleting User {}", userId);
+        if (userId == null) {
+            throw new IllegalArgumentException("User not exists in DB, update is not permitted!");
+        }
+
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User updateUser(final User updatedUser) {
+        log.info("Updating User {}", updatedUser);
+        if (updatedUser.getId() == null) {
+            throw new IllegalArgumentException("User not exists in DB, update is not permitted!");
+        }
+
+        return userRepository.save(updatedUser);
     }
 
     @Override
