@@ -14,6 +14,24 @@ class UserMapper {
                            user.getEmail());
     }
 
+    UserSimpleDto toSimple(User user) {
+        return new UserSimpleDto(user.getId(), 
+                           user.getFirstName(), 
+                           user.getLastName());
+    }
+
+    UserEmailDto toEmail(User user) {
+        return new UserEmailDto(user.getId(), 
+                            user.getEmail());
+    }
+
+    UserOlderDto toOlder(User user) {
+        return new UserOlderDto(user.getId(),
+                            user.getFirstName(), 
+                            user.getLastName(), 
+                            user.getBirthdate());
+    }
+
     User toEntity(UserDto userDto) {
         return new User(
                         userDto.firstName(),

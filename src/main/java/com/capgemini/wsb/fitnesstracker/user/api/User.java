@@ -45,5 +45,8 @@ public class User {
         this.email = email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
 
