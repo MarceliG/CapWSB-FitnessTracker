@@ -29,6 +29,26 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
+    public void deleteUser(final Long userId) {
+        log.info("Deleting User {}", userId);
+        if (userId == null) {
+            throw new IllegalArgumentException("User not exists in DB, update is not permitted!");
+        }
+
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User updateUser(final User updatedUser) {
+        log.info("Updating User {}", updatedUser);
+        if (updatedUser.getId() == null) {
+            throw new IllegalArgumentException("User not exists in DB, update is not permitted!");
+        }
+
+        return userRepository.save(updatedUser);
+    }
+
+    @Override
     public Optional<User> getUser(final Long userId) {
         return userRepository.findById(userId);
     }
