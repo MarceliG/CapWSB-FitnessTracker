@@ -19,6 +19,11 @@ class UserServiceImpl implements UserService, UserProvider {
 
     private final UserRepository userRepository;
 
+    
+    /** 
+     * @param user
+     * @return User
+     */
     @Override
     public User createUser(final User user) {
         log.info("Creating User {}", user);
@@ -28,6 +33,10 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.save(user);
     }
 
+    
+    /** 
+     * @param userId
+     */
     @Override
     public void deleteUser(final Long userId) {
         log.info("Deleting User {}", userId);
@@ -38,6 +47,11 @@ class UserServiceImpl implements UserService, UserProvider {
         userRepository.deleteById(userId);
     }
 
+    
+    /** 
+     * @param updatedUser
+     * @return User
+     */
     @Override
     public User updateUser(final User updatedUser) {
         log.info("Updating User {}", updatedUser);
@@ -48,17 +62,31 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.save(updatedUser);
     }
 
+    
+    /** 
+     * @param userId
+     * @return Optional<User>
+     */
     @Override
     public Optional<User> getUser(final Long userId) {
         return userRepository.findById(userId);
     }
 
+    
+    /** 
+     * @param email
+     * @return Optional<User>
+     */
     @Override
     public Optional<User> getUserByEmail(final String email) {
         return userRepository.findByEmail(email);
     }
 
-    @Override
+    
+    /** 
+     * @return List<User>
+     */
+     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }

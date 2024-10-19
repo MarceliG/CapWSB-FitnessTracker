@@ -30,6 +30,9 @@ class UserController {
 
     private final UserMapper userMapper;
 
+    /**
+     * @return List<UserDto>
+     */
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.findAllUsers()
@@ -38,6 +41,9 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * @return List<UserSimpleDto>
+     */
     @GetMapping("/simple")
     public List<UserSimpleDto> getSimpleAllUser() {
         return userService.findAllUsers()
@@ -46,11 +52,19 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * @param userId
+     * @return UserDto
+     */
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
         return userMapper.toDto(userService.getUser(userId).orElseThrow());
     }
 
+    /**
+     * @param email
+     * @return List<UserEmailDto>
+     */
     @GetMapping("/email")
     public List<UserEmailDto> getUserByEmail(@RequestParam String email) {
         return userService.getUserByEmail(email)
@@ -59,6 +73,10 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * @param time
+     * @return List<UserOlderDto>
+     */
     @GetMapping("/older/{time}")
     public List<UserOlderDto> getUsersOlderThan(@PathVariable @JsonFormat(pattern = "yyyy-MM-dd") LocalDate time) {
         return userService.findAllUsers()
@@ -68,6 +86,11 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * @param userDto
+     * @return User
+     * @throws InterruptedException
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User addUser(@RequestBody UserDto userDto) throws InterruptedException {
@@ -75,12 +98,20 @@ class UserController {
         return userService.createUser(userMapper.toEntity(userDto));
     }
 
+    /**
+     * @param userId
+     */
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
     }
 
+    /**
+     * @param userId
+     * @param userDto
+     * @return User
+     */
     @PutMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
