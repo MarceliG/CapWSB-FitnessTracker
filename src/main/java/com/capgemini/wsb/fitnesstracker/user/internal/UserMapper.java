@@ -7,7 +7,7 @@ import com.capgemini.wsb.fitnesstracker.user.api.User;
 @Component
 class UserMapper {
 
-    
+
     /** 
      * @param user
      * @return UserDto
@@ -19,26 +19,8 @@ class UserMapper {
                 user.getBirthdate(),
                 user.getEmail());
     }
-
-    UserSimpleDto toSimple(User user) {
-        return new UserSimpleDto(user.getId(), 
-                           user.getFirstName(), 
-                           user.getLastName());
-    }
-
-    UserEmailDto toEmail(User user) {
-        return new UserEmailDto(user.getId(), 
-                            user.getEmail());
-    }
-
-    UserOlderDto toOlder(User user) {
-        return new UserOlderDto(user.getId(),
-                            user.getFirstName(), 
-                            user.getLastName(), 
-                            user.getBirthdate());
-    }
-
     
+   
     /** 
      * @param user
      * @return UserSimpleDto
