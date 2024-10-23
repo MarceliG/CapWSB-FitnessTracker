@@ -1,7 +1,6 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -68,11 +67,10 @@ class UserController {
      */
     @GetMapping("/email")
     public List<UserEmailDto> getUserByEmail(@RequestParam String email) {
-        List<UserEmailDto> userList = new ArrayList<>();
-        UserEmailDto user = userMapper.toEmail(userService.getUserByEmail(email).orElseThrow());
-
-        userList.add(user);
-        return userList;
+        return userService.getUserByEmail(email)
+                .stream()
+                .map(userMapper::toEmail)
+                .toList();
     }
 
     /**
@@ -81,13 +79,11 @@ class UserController {
      */
     @GetMapping("/older/{time}")
     public List<UserOlderDto> getUsersOlderThan(@PathVariable @JsonFormat(pattern = "yyyy-MM-dd") LocalDate time) {
-        List<UserOlderDto> users = userService.findAllUsers()
+        return userService.findAllUsers()
                 .stream()
                 .filter(user -> user.getBirthdate().isBefore(time))
                 .map(userMapper::toOlder)
                 .toList();
-
-        return users;
     }
 
     /**
@@ -98,19 +94,8 @@ class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User addUser(@RequestBody UserDto userDto) throws InterruptedException {
-
-        // Demonstracja how to use @RequestBody
         System.out.println("User with e-mail: " + userDto.email() + "passed to the request");
-
-        // saveUser with Service and return User
-        User createdUser = userService.createUser(
-                new User(
-                        userDto.firstName(),
-                        userDto.lastName(),
-                        userDto.birthdate(),
-                        userDto.email()));
-
-        return createdUser;
+        return userService.createUser(userMapper.toEntity(userDto));
     }
 
     /**
