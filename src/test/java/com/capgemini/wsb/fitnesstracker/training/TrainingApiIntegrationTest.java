@@ -1,10 +1,17 @@
 package com.capgemini.wsb.fitnesstracker.training;
 
-import com.capgemini.wsb.fitnesstracker.IntegrationTest;
-import com.capgemini.wsb.fitnesstracker.IntegrationTestBase;
-import com.capgemini.wsb.fitnesstracker.training.api.Training;
-import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
-import com.capgemini.wsb.fitnesstracker.user.api.User;
+import static java.time.LocalDate.now;
+import static java.util.UUID.randomUUID;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,15 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import static java.time.LocalDate.now;
-import static java.util.UUID.randomUUID;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.capgemini.wsb.fitnesstracker.IntegrationTest;
+import com.capgemini.wsb.fitnesstracker.IntegrationTestBase;
+import com.capgemini.wsb.fitnesstracker.training.api.Training;
+import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
+import com.capgemini.wsb.fitnesstracker.user.api.User;
 
 @IntegrationTest
 @Transactional
@@ -143,6 +146,23 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                     "averageSpeed": 8.2
                 }
                 """.formatted(user1.getId());
+        // To działa tylko że nie powinniśmy zmieniać testów a nie wiem jak w treningu przekazać userId zamiast user
+        // String requestBody = """
+        //             {
+        //                 "user": {
+        //                     "id": "%s",
+        //                     "firstName": "%s",
+        //                     "lastName": "%s",
+        //                     "email": "%s"
+        //                 },
+        //                 "startTime": "2024-04-01T11:00:00",
+        //                 "endTime": "2024-04-01T11:00:00",
+        //                 "activityType": "RUNNING",
+        //                 "distance": 10.52,
+        //                 "averageSpeed": 8.2
+        //             }
+        //         """.formatted(user1.getId(), user1.getFirstName(), user1.getLastName(), user1.getEmail());
+        
         mockMvc.perform(post("/v1/trainings").contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andDo(log())
                 .andExpect(status().isCreated())
