@@ -1,14 +1,17 @@
 package com.capgemini.wsb.fitnesstracker.training.internal;
 
-import com.capgemini.wsb.fitnesstracker.training.api.TrainingProvider;
-import com.capgemini.wsb.fitnesstracker.user.api.User;
-
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.capgemini.wsb.fitnesstracker.training.api.Training;
+import com.capgemini.wsb.fitnesstracker.training.api.TrainingProvider;
+import com.capgemini.wsb.fitnesstracker.user.api.User;
+
 @Service
-// TODO: Provide Impl
 public class TrainingServiceImpl implements TrainingProvider {
 
     private final TrainingRepository trainingRepository;
@@ -28,5 +31,35 @@ public class TrainingServiceImpl implements TrainingProvider {
                 .filter(training -> training.getUser().getId().equals(userId))
                 .forEach(trainingRepository::delete);
     }
+
+    @Override
+    public List<Training> findAllTrainings() {
+        return trainingRepository.findAll();
+    }
+
+    @Override
+    public List<Training> findAllTrainingsByUserId(Long userId) {
+        return trainingRepository.findAll().stream()
+                .filter(training -> training.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
+    public List<Training> findAllFinishedTrainingsAfter(Date afterDate) {
+        return trainingRepository.findAll()
+                .stream()
+                .filter(training -> training.getEndTime().after(afterDate))
+                .collect(Collectors.toList());
+    }
+
+    public List<Training> findAllTrainingsByActivityType(ActivityType activityType) {
+        return trainingRepository.findAll()
+                .stream()
+                .filter(training -> training.getActivityType().equals(activityType))
+                .collect(Collectors.toList());
+    }
+
+    // public Training createTraining(Training training) {
+    // return trainingRepository.save(training);
+    // }
 
 }
