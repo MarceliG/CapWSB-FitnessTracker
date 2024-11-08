@@ -23,6 +23,8 @@ import com.capgemini.wsb.fitnesstracker.user.api.User;
 import com.capgemini.wsb.fitnesstracker.user.internal.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/v1/trainings")
@@ -83,18 +85,27 @@ public class TrainingController {
         if (user.isEmpty()) {
             throw new RuntimeException("User not found");
         }
+
+        Training training = trainingMapper.toAdd(user.get(), trainingAddDto);
         
-        TrainingDto trainingDto = new TrainingDto(
-            null,
-            user.get(),
-            trainingAddDto.startTime(),
-            trainingAddDto.endTime(),
-            trainingAddDto.activityType(),
-            trainingAddDto.distance(),
-            trainingAddDto.averageSpeed()
-        );
-        
-        return trainingService.createTraining(trainingMapper.toEntity(trainingDto));
+        return trainingService.createTraining(training);
+    }
+
+    @PutMapping("/{trainingId}")
+    public Training updateTraining(@PathVariable Long trainingId, @RequestBody TrainingAddDto trainingAddDto) {
+        Optional<Training> training = trainingService.getTrainingById(trainingId);
+        if (training.isEmpty()) {
+            throw new RuntimeException("Training not found");
+        }
+
+        Optional<User> user = userService.getUser(trainingAddDto.userId());
+        if (user.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        Training updateTrainng = trainingMapper.toUpdate(user.get(), training.get(), trainingAddDto);
+
+        return trainingService.updateTraining(updateTrainng);
     }
 
 }

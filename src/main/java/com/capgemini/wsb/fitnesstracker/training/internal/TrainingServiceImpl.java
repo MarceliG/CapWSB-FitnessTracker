@@ -69,6 +69,10 @@ public class TrainingServiceImpl implements TrainingProvider {
                 .collect(Collectors.toList());
     }
 
+    public Optional<Training> getTrainingById(Long trainingId) {
+        return trainingRepository.findById(trainingId);
+    }
+
     public Training createTraining(final Training training) {
         log.info("Creating User {}", training);
         if (training.getId() != null) {
@@ -77,4 +81,12 @@ public class TrainingServiceImpl implements TrainingProvider {
         return trainingRepository.save(training);
     }
 
+    public Training updateTraining(final Training updatedTraining) {
+        log.info("Updating User {}", updatedTraining);
+        if (updatedTraining.getId() == null) {
+            throw new IllegalArgumentException("Training not exists in DB, update is not permitted!");
+        }
+
+        return trainingRepository.save(updatedTraining);
+    }
 }
