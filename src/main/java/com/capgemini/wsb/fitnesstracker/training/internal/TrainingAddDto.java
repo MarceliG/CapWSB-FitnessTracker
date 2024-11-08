@@ -2,13 +2,8 @@ package com.capgemini.wsb.fitnesstracker.training.internal;
 
 import java.util.Date;
 
-import com.capgemini.wsb.fitnesstracker.user.api.User;
-
-import jakarta.annotation.Nullable;
-
-public record TrainingDto(
-    @Nullable Long id,
-    User user,
+public record TrainingAddDto (
+    Long userId,
     Date startTime,
     Date endTime,
     ActivityType activityType,

@@ -17,6 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TrainingServiceImpl implements TrainingProvider {
 
+    @Override
+    public List<Training> findByActivityType(ActivityType activityType) {
+        return trainingRepository.findAll()
+                .stream()
+                .filter(training -> training.getActivityType().equals(activityType))
+                .collect(Collectors.toList());
+    }
+
     private final TrainingRepository trainingRepository;
 
     public TrainingServiceImpl(TrainingRepository trainingRepository) {
