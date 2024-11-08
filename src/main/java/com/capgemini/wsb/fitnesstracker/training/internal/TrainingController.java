@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
+import com.capgemini.wsb.fitnesstracker.user.api.User;
+
+import com.capgemini.wsb.fitnesstracker.user.internal.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +31,7 @@ public class TrainingController {
 
     private final TrainingServiceImpl trainingService;
     private final TrainingMapper trainingMapper;
+    private final UserServiceImpl userService;
 
     /**
      * @return List<Training>
@@ -72,7 +77,23 @@ public class TrainingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Training addTraining(@RequestBody TrainingDto trainingDto) throws InterruptedException {
+    public Training addTraining(@RequestBody TrainingAddDto trainingAddDto) throws InterruptedException {     
+        Optional<User> user = userService.getUser(trainingAddDto.userId());
+
+        if (user.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+        
+        TrainingDto trainingDto = new TrainingDto(
+            null,
+            user.get(),
+            trainingAddDto.startTime(),
+            trainingAddDto.endTime(),
+            trainingAddDto.activityType(),
+            trainingAddDto.distance(),
+            trainingAddDto.averageSpeed()
+        );
+        
         return trainingService.createTraining(trainingMapper.toEntity(trainingDto));
     }
 
