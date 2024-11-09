@@ -3,6 +3,7 @@ package com.capgemini.wsb.fitnesstracker.training.internal;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
+import com.capgemini.wsb.fitnesstracker.user.api.User;
 
 @Component
 public class TrainingMapper {
@@ -61,8 +62,10 @@ public class TrainingMapper {
     }
 
     /**
-     * @param training
-     * @return TrainingDto
+     * Maps a `Training` entity to a `TrainingDto`.
+     *
+     * @param training the `Training` entity to map
+     * @return a `TrainingDto` representing the given `Training` entity
      */
     TrainingDto toDto(Training training) {
         return new TrainingDto(

@@ -16,6 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class TrainingServiceImpl implements TrainingProvider {
+    private final TrainingRepository trainingRepository;
+
+    public TrainingServiceImpl(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
+
     /**
      * Finds all trainings by specified activity type.
      *
