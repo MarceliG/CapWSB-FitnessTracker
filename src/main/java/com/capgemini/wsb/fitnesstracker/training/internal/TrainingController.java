@@ -34,7 +34,9 @@ public class TrainingController {
     private final UserServiceImpl userService;
 
     /**
-     * @return List<Training>
+     * Retrieves a list of all trainings.
+     *
+     * @return a list of `TrainingDto` representing all trainings
      */
     @GetMapping
     public List<TrainingDto> getAllTrainings() {
@@ -45,8 +47,10 @@ public class TrainingController {
     }
 
     /**
-     * @param userId
-     * @return List<TrainingDto>
+     * Retrieves a list of trainings for a specific user.
+     *
+     * @param userId the ID of the user for whom to retrieve trainings
+     * @return a list of `TrainingDto` for the specified user
      */
     @GetMapping("/{userId}")
     public List<TrainingDto> getTrainingsForUser(@PathVariable Long userId) {
@@ -56,6 +60,15 @@ public class TrainingController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves a list of finished trainings after a specific date.
+     *
+     * @param afterTime the date in "yyyy-MM-dd" format after which to retrieve
+     *                  finished trainings
+     * @return a list of `TrainingDto` for finished trainings after the specified
+     *         date
+     * @throws ParseException if the date format is invalid
+     */
     @GetMapping("/finished/{afterTime}")
     public List<TrainingDto> getFinishedTrainingsAfter(@PathVariable String afterTime) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -66,6 +79,13 @@ public class TrainingController {
                 .toList();
     }
 
+    /**
+     * Retrieves a list of trainings by activity type.
+     *
+     * @param activityType the activity type to filter trainings by
+     * @return a list of `TrainingDto` for trainings with the specified activity
+     *         type
+     */
     @GetMapping("/activityType")
     public List<TrainingDto> getAllTrainingByActivityType(@RequestParam String activityType) {
         ActivityType type = ActivityType.valueOf(activityType.toUpperCase());
@@ -75,6 +95,13 @@ public class TrainingController {
                 .toList();
     }
 
+    /**
+     * Adds a new training based on the provided `TrainingAddDto`.
+     *
+     * @param trainingAddDto the DTO containing details for the new training
+     * @return the created `Training` entity
+     * @throws InterruptedException if the process is interrupted
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Training addTraining(@RequestBody TrainingAddDto trainingAddDto) throws InterruptedException {
@@ -89,6 +116,13 @@ public class TrainingController {
         return trainingService.createTraining(training);
     }
 
+    /**
+     * Updates an existing training with the provided `TrainingAddDto`.
+     *
+     * @param trainingId     the ID of the training to update
+     * @param trainingAddDto the DTO containing updated training details
+     * @return the updated `Training` entity
+     */
     @PutMapping("/{trainingId}")
     public Training updateTraining(@PathVariable Long trainingId, @RequestBody TrainingAddDto trainingAddDto) {
         Optional<Training> training = trainingService.getTrainingById(trainingId);
