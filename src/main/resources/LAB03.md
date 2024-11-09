@@ -32,10 +32,10 @@ Stworzone API powinno pozwalać na:
 - [x] rozwiązanie powinno spełniać zasady SOLID
 - [x] rozwiązanie powinno być pokryte testami jednostkowymi (>80%)
 - [x] rozwiązanie powinno być odpowiednio zhermetyzowane (nie udostępniać funkcjonalności pozostałym pakietom programu)
-- [ ] kod powinien być odpowiednio udokumentowany za pomocą JavaDoc
+- [x] kod powinien być odpowiednio udokumentowany za pomocą JavaDoc
 - [ ] do kodu powinna zostać dołączona wyeksportowana kolekcja zapytań z programu Postman, pozwalająca przetestować
   stworzone API
-- [ ] rozwiązanie powinno wykorzystywać zwykłe klasy Javowe do definicji obiektów transferu danych (DTO)
+- [x] rozwiązanie powinno wykorzystywać zwykłe klasy Javowe do definicji obiektów transferu danych (DTO)
 
 ## ZADANIE 2. API sieciowe do generowania raportów treningowych 
 
