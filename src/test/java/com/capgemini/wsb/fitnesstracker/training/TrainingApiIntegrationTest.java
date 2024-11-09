@@ -49,7 +49,6 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$[0].user.lastName").value(user1.getLastName()))
                 .andExpect(jsonPath("$[0].user.email").value(user1.getEmail()))
 
-
                 .andExpect(jsonPath("$[0].startTime").value(sdf.format(training1.getStartTime())))
                 .andExpect(jsonPath("$[0].endTime").value(sdf.format(training1.getEndTime())))
                 .andExpect(jsonPath("$[0].distance").value((training1.getDistance())))
@@ -78,15 +77,18 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$[0].distance").value((training1.getDistance())))
                 .andExpect(jsonPath("$[0].averageSpeed").value(training1.getAverageSpeed()))
 
-                .andExpect(jsonPath("$[1]").doesNotExist());;
+                .andExpect(jsonPath("$[1]").doesNotExist());
+        ;
     }
 
     @Test
     void shouldReturnAllFinishedTrainingsAfterTime_whenGettingAllFinishedTrainingsAfterTime() throws Exception {
 
         User user1 = existingUser(generateClient());
-        Training training1 = persistTraining(generateTrainingWithDetails(user1, "2024-05-19 19:00:00", "2024-05-19 20:30:00", ActivityType.RUNNING, 14, 11.5));
-        Training training2 = persistTraining(generateTrainingWithDetails(user1, "2024-05-17 19:00:00", "2024-05-17 20:30:00", ActivityType.RUNNING, 14, 11.5));
+        Training training1 = persistTraining(generateTrainingWithDetails(user1, "2024-05-19 19:00:00",
+                "2024-05-19 20:30:00", ActivityType.RUNNING, 14, 11.5));
+        Training training2 = persistTraining(generateTrainingWithDetails(user1, "2024-05-17 19:00:00",
+                "2024-05-17 20:30:00", ActivityType.RUNNING, 14, 11.5));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS+00:00");
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
@@ -113,7 +115,8 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
         Training training2 = persistTraining(generateTrainingWithActivityType(user1, ActivityType.TENNIS));
         Training training3 = persistTraining(generateTrainingWithActivityType(user1, ActivityType.TENNIS));
 
-        mockMvc.perform(get("/v1/trainings/activityType").param("activityType", "TENNIS").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/trainings/activityType").param("activityType", "TENNIS")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
@@ -173,7 +176,8 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 "averageSpeed": 0.0
                 }
                 """.formatted(user1.getId());
-        mockMvc.perform(put("/v1/trainings/{trainingId}", training1.getId()).contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        mockMvc.perform(put("/v1/trainings/{trainingId}", training1.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.user.id").value(user1.getId()))
@@ -201,7 +205,8 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 8.2);
     }
 
-    private static Training generateTrainingWithActivityType(User user, ActivityType activityType) throws ParseException {
+    private static Training generateTrainingWithActivityType(User user, ActivityType activityType)
+            throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         return new Training(
@@ -212,7 +217,8 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 0, 0);
     }
 
-    private static Training generateTrainingWithDetails(User user, String startTime, String endTime, ActivityType activityType, double distance, double averageSpeed) throws ParseException {
+    private static Training generateTrainingWithDetails(User user, String startTime, String endTime,
+            ActivityType activityType, double distance, double averageSpeed) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         return new Training(
@@ -224,6 +230,4 @@ class TrainingApiIntegrationTest extends IntegrationTestBase {
                 averageSpeed);
     }
 
-
 }
-
