@@ -22,8 +22,11 @@ public class UserServiceImpl implements UserService, UserProvider {
     private final TrainingServiceImpl trainingServiceImpl;
 
     /**
-     * @param user
-     * @return User
+     * Creates a new user in the database.
+     *
+     * @param user The User entity to be created.
+     * @return The created User entity with a database ID.
+     * @throws IllegalArgumentException if the user already has a database ID.
      */
     @Override
     public User createUser(final User user) {
@@ -35,8 +38,11 @@ public class UserServiceImpl implements UserService, UserProvider {
     }
 
     /**
-     * @param updatedUser
-     * @return User
+     * Updates an existing user in the database.
+     *
+     * @param updatedUser The User entity with updated information.
+     * @return The updated User entity.
+     * @throws IllegalArgumentException if the user does not have an existing database ID.
      */
     @Override
     public User updateUser(final User updatedUser) {
@@ -49,8 +55,10 @@ public class UserServiceImpl implements UserService, UserProvider {
     }
 
     /**
-     * @param userId
-     * @return Optional<User>
+     * Deletes a user and their associated training data from the database.
+     *
+     * @param userId The ID of the user to delete.
+     * @throws IllegalArgumentException if the user ID is null.
      */
     @Override
     public void deleteUser(final Long userId) {
@@ -64,8 +72,10 @@ public class UserServiceImpl implements UserService, UserProvider {
     }
 
     /**
-     * @param userId
-     * @return Optional<User>
+     * Retrieves a user by their ID.
+     *
+     * @param userId The ID of the user to retrieve.
+     * @return An Optional containing the User entity if found, or empty if not found.
      */
     @Override
     public Optional<User> getUser(final Long userId) {
@@ -73,8 +83,10 @@ public class UserServiceImpl implements UserService, UserProvider {
     }
 
     /**
-     * @param email
-     * @return Optional<User>
+     * Retrieves a user by their email address.
+     *
+     * @param email The email address of the user to retrieve.
+     * @return An Optional containing the User entity if found, or empty if not found.
      */
     @Override
     public Optional<User> getUserByEmail(final String email) {
@@ -82,7 +94,9 @@ public class UserServiceImpl implements UserService, UserProvider {
     }
 
     /**
-     * @return List<User>
+     * Retrieves all users in the database.
+     *
+     * @return A list of all User entities.
      */
     @Override
     public List<User> findAllUsers() {
