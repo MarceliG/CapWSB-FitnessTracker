@@ -1,5 +1,6 @@
 package com.capgemini.wsb.fitnesstracker.training.internal;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -79,6 +80,22 @@ public class TrainingServiceImpl implements TrainingProvider {
     public List<Training> findAllTrainingsByUserId(Long userId) {
         return trainingRepository.findAll().stream()
                 .filter(training -> training.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
+    }
+   
+    public List<Training> findAllTrainingForCurrentMonthByUserId(Long userId) {
+        return trainingRepository.findAll().stream()
+                .filter(training -> training.getUser().getId().equals(userId))
+                .filter(training -> {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(training.getStartTime());
+                    int trainingMonth = cal.get(Calendar.MONTH);
+                    
+                    cal.setTime(new Date());
+                    int currentMonth = cal.get(Calendar.MONTH);
+                    
+                    return trainingMonth == currentMonth;
+                })
                 .collect(Collectors.toList());
     }
 

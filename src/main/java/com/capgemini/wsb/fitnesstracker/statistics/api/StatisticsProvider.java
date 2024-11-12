@@ -12,5 +12,12 @@ public interface StatisticsProvider {
      * @return An {@link Optional} containing the located Statistics, or {@link Optional#empty()} if not found
      */
     Optional<Statistics> getStatistics(Long statisticsId);
-
+    
+    /**
+     * Count all trainings for user with given ID.
+     * 
+     * @param userId
+     * @return Long
+     */
+    long countTrainingsByUserId(Long userId);
 }
