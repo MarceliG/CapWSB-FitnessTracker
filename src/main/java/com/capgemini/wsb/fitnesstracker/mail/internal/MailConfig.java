@@ -17,8 +17,8 @@ class MailConfig {
     private final EmailServiceImpl emailService;
 
     @Scheduled(cron = "0 0 0 * * MON")
+    // @Scheduled(cron = "*/10 * * * * *") // Every 10s - for testing
     public void scheduleFixedRate() {
-        log.info("Sending summaries...");
         emailService.sendSummaries();
     }
 }

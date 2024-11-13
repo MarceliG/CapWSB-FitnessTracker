@@ -82,7 +82,7 @@ public class TrainingServiceImpl implements TrainingProvider {
                 .filter(training -> training.getUser().getId().equals(userId))
                 .collect(Collectors.toList());
     }
-   
+
     public List<Training> findAllTrainingForCurrentMonthByUserId(Long userId) {
         return trainingRepository.findAll().stream()
                 .filter(training -> training.getUser().getId().equals(userId))
