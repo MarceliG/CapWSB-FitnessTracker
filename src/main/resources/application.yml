@@ -7,6 +7,20 @@ management:
       include: mappings
 
 spring:
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: <username>
+    password: <password>
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
   profiles:
     active: loadInitialData
   datasource:

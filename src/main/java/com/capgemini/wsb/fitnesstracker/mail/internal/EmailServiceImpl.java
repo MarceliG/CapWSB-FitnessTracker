@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.capgemini.wsb.fitnesstracker.mail.api.EmailDto;
 import com.capgemini.wsb.fitnesstracker.mail.api.EmailSender;
 import com.capgemini.wsb.fitnesstracker.mail.api.EmailService;
-import com.capgemini.wsb.fitnesstracker.statistics.internal.StatisticsServiceImpl;
 import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.internal.TrainingServiceImpl;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
@@ -26,7 +25,6 @@ public class EmailServiceImpl implements EmailSender, EmailService {
 
     private final UserServiceImpl userService;
     private final TrainingServiceImpl trainingService;
-    private final StatisticsServiceImpl statisticsService;
 
     @Override
     public void sendSummaries() {
