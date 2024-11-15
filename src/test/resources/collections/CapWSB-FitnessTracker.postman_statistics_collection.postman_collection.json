@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "cdec88a8-b9b6-4201-a689-3e92f9ed6d6d",
+		"name": "CapWSB-FitnessTracker.postman_statistics_collection",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations on users (GET, POST, PUT, DELETE).\n\n## 💡Authors\n\n- Adam Wawrzyniak\n    \n- Marceli Górski",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24911444"
+	},
+	"item": [
+		{
+			"name": "create_statistic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 2,\r\n    \"totalTrainings\": 1,\r\n    \"totalDistance\": 1.0,\r\n    \"totalCaloriesBurned\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_statistics_by_user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_statistics",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "statistics_higher_calorie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/calories/0",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"calories",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8081/v1/statistics",
+			"type": "string"
+		}
+	]
+}
