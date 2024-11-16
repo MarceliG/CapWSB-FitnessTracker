@@ -31,7 +31,9 @@ class UserController {
     private final UserMapper userMapper;
 
     /**
-     * @return List<UserDto>
+     * Retrieves a list of all users.
+     * 
+     * @return A list of UserDto objects representing all users.
      */
     @GetMapping
     public List<UserDto> getAllUsers() {
@@ -42,7 +44,9 @@ class UserController {
     }
 
     /**
-     * @return List<UserSimpleDto>
+     * Retrieves a simplified list of users.
+     * 
+     * @return A list of UserSimpleDto objects with basic user information.
      */
     @GetMapping("/simple")
     public List<UserSimpleDto> getSimpleAllUser() {
@@ -53,8 +57,10 @@ class UserController {
     }
 
     /**
-     * @param userId
-     * @return UserDto
+     * Retrieves user details by their ID.
+     * 
+     * @param userId The ID of the user.
+     * @return A UserDto object representing the user.
      */
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
@@ -62,8 +68,11 @@ class UserController {
     }
 
     /**
-     * @param email
-     * @return List<UserEmailDto>
+     * Searches for users by email address.
+     * 
+     * @param email The email address of the user.
+     * @return A list of UserEmailDto objects representing users with the specified
+     *         email.
      */
     @GetMapping("/email")
     public List<UserEmailDto> getUserByEmail(@RequestParam String email) {
@@ -74,8 +83,11 @@ class UserController {
     }
 
     /**
-     * @param time
-     * @return List<UserOlderDto>
+     * Retrieves users who are older than a specified date.
+     * 
+     * @param time Date in the format yyyy-MM-dd.
+     * @return A list of UserOlderDto objects representing users born before the
+     *         specified date.
      */
     @GetMapping("/older/{time}")
     public List<UserOlderDto> getUsersOlderThan(@PathVariable @JsonFormat(pattern = "yyyy-MM-dd") LocalDate time) {
@@ -87,9 +99,11 @@ class UserController {
     }
 
     /**
-     * @param userDto
-     * @return User
-     * @throws InterruptedException
+     * Adds a new user to the system.
+     * 
+     * @param userDto A UserDto object representing the new user's details.
+     * @return A User object representing the added user.
+     * @throws InterruptedException If the addition operation is interrupted.
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -99,7 +113,9 @@ class UserController {
     }
 
     /**
-     * @param userId
+     * Deletes a user by their ID.
+     * 
+     * @param userId The ID of the user to delete.
      */
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -108,9 +124,11 @@ class UserController {
     }
 
     /**
-     * @param userId
-     * @param userDto
-     * @return User
+     * Updates an existing user's information.
+     * 
+     * @param userId  The ID of the user to update.
+     * @param userDto A UserDto object containing the updated user information.
+     * @return The updated User object.
      */
     @PutMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)

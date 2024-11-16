@@ -1,0 +1,194 @@
+{
+    "info": {
+        "_postman_id": "88c9eaeb-26dc-47d8-8f61-b476cb1509cb",
+        "name": "CapWSB-FitnessTracker.postman_training_collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "20744666"
+    },
+    "item": [
+        {
+            "name": "get_all_trainings",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "get_training_by_1",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}/{{training_id}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}",
+                        "{{training_id}}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "get_finished_training_after_2024-01-15",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}/{{training_finished}}/{{after_time}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}",
+                        "{{training_finished}}",
+                        "{{after_time}}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "get_training_by_activity_type",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}/{{activity_type}}{{activity_type_input}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}",
+                        "{{activity_type}}{{activity_type_input}}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "post_new_training",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n  \"userId\": \"1\",\r\n  \"startTime\": \"2024-04-01T11:00:00\",\r\n  \"endTime\": \"2024-04-01T11:00:00\",\r\n  \"activityType\": \"RUNNING\",\r\n  \"distance\": 10.52,\r\n  \"averageSpeed\": 8.2\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "put_training_1",
+            "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n  \"userId\": \"1\",\r\n  \"startTime\": \"2022-04-01T10:00:00\",\r\n  \"endTime\": \"2022-04-01T11:00:00\",\r\n  \"activityType\": \"TENNIS\",\r\n  \"distance\": 0.0,\r\n  \"averageSpeed\": 0.0\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{base_url}}/{{trainings}}/{{training_id}}",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "{{trainings}}",
+                        "{{training_id}}"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8081/v1",
+            "type": "string"
+        },
+        {
+            "key": "trainings",
+            "value": "trainings",
+            "type": "string"
+        },
+        {
+            "key": "training_id",
+            "value": "1",
+            "type": "string"
+        },
+        {
+            "key": "training_finished",
+            "value": "finished",
+            "type": "string"
+        },
+        {
+            "key": "after_time",
+            "value": "2024-01-15",
+            "type": "string"
+        },
+        {
+            "key": "activity_type",
+            "value": "activityType",
+            "type": "string"
+        },
+        {
+            "key": "activity_type_input",
+            "value": "?activityType=RUNNING",
+            "type": "string"
+        }
+    ]
+}

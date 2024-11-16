@@ -8,8 +8,10 @@ import com.capgemini.wsb.fitnesstracker.user.api.User;
 class UserMapper {
 
     /**
-     * @param user
-     * @return UserDto
+     * Converts a User entity to a UserDto.
+     * 
+     * @param user The User entity to be converted.
+     * @return A UserDto object representing the user with full details.
      */
     UserDto toDto(User user) {
         return new UserDto(user.getId(),
@@ -20,8 +22,10 @@ class UserMapper {
     }
 
     /**
-     * @param user
-     * @return UserSimpleDto
+     * Converts a User entity to a simplified UserSimpleDto.
+     * 
+     * @param user The User entity to be converted.
+     * @return A UserSimpleDto object containing basic user information.
      */
     UserSimpleDto toSimple(User user) {
         return new UserSimpleDto(user.getId(),
@@ -30,8 +34,10 @@ class UserMapper {
     }
 
     /**
-     * @param user
-     * @return UserEmailDto
+     * Converts a User entity to a UserEmailDto.
+     * 
+     * @param user The User entity to be converted.
+     * @return A UserEmailDto object containing only the user's ID and email.
      */
     UserEmailDto toEmail(User user) {
         return new UserEmailDto(user.getId(),
@@ -39,8 +45,10 @@ class UserMapper {
     }
 
     /**
-     * @param user
-     * @return UserOlderDto
+     * Converts a User entity to a UserOlderDto.
+     * 
+     * @param user The User entity to be converted.
+     * @return A UserOlderDto object containing the user's ID, name, and birthdate.
      */
     UserOlderDto toOlder(User user) {
         return new UserOlderDto(user.getId(),
@@ -50,8 +58,10 @@ class UserMapper {
     }
 
     /**
-     * @param userDto
-     * @return User
+     * Converts a UserDto to a User entity.
+     * 
+     * @param userDto The UserDto object to be converted.
+     * @return A new User entity populated with data from the UserDto.
      */
     User toEntity(UserDto userDto) {
         return new User(
@@ -62,9 +72,11 @@ class UserMapper {
     }
 
     /**
-     * @param user
-     * @param userDto
-     * @return User
+     * Updates an existing User entity with data from a UserDto.
+     * 
+     * @param user    The existing User entity to be updated.
+     * @param userDto The UserDto object containing updated data.
+     * @return The updated User entity.
      */
     User updateEntity(User user, UserDto userDto) {
         user.setFirstName(userDto.firstName());
